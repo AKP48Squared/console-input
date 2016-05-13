@@ -13,8 +13,8 @@ class app extends PLUGIN {
   constructor(AKP48, _config) {
     super(PLUGIN_NAME, AKP48);
     var self = this;
-    
-    readline.setPrompt(">");
+    // This doesn't work on windows?
+    readline.setPrompt("> ");
     readline.prompt();
     readline.on("line", function (line) {
       AKP48.onMessage(line, self.createContext(line));
@@ -27,7 +27,7 @@ app.prototype.createContext = function (line) {
   line.split(/[^\\]\|/).forEach(function (text) {
     var ctx = {
       rawText: line,
-      text: text.trim(), 
+      text: text.trim(),
       myNick: "console",
       permissions: permissions.slice(), // Copy permissions
       instanceId: 1, // Console is #1
