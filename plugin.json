@@ -1,0 +1,6 @@
+{
+  "name": "console-input",
+  "type": "BackgroundTask",
+  "description": "Command Line Interface (CLI) for AKP48.",
+  "main": "app.js"
+}
