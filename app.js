@@ -9,20 +9,7 @@ var permissions = [
   "AKP48.console"
 ];
 
-class app extends PLUGIN {
-  constructor(AKP48, _config) {
-    super(PLUGIN_NAME, AKP48);
-    var self = this;
-    // This doesn't work on windows?
-    readline.setPrompt("> ");
-    readline.prompt();
-    readline.on("line", function (line) {
-      AKP48.onMessage(line, self.createContext(line));
-    });
-  }
-}
-
-app.prototype.createContext = function (line) {
+function createContext(self, line) {
   var ctxs = [];
   line.split(/[^\\]\|/).forEach(function (text) {
     var ctx = {
@@ -32,7 +19,7 @@ app.prototype.createContext = function (line) {
       permissions: permissions.slice(), // Copy permissions
       instanceId: 1, // Console is #1
       instanceType: "console",
-      instance: this,
+      instance: self,
       isCmd: true, // It's always a command
     };
     ctxs.push(ctx);
@@ -40,9 +27,17 @@ app.prototype.createContext = function (line) {
   return ctxs;
 };
 
-/*app.prototype.saveConfig = function () {
-  this._AKP48.saveConfig(this._config, "console");
-};*/
+class app extends PLUGIN {
+  constructor(AKP48, _config) {
+    super(PLUGIN_NAME, AKP48);
+    var self = this;
+    readline.setPrompt("> "); // This doesn't work on windows?
+    readline.prompt();
+    readline.on("line", function (line) {
+      AKP48.onMessage(line, createContext(self, line));
+    });
+  }
+}
 
 app.prototype.unload = function () {
   readline.close();
