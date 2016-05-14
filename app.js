@@ -31,8 +31,8 @@ class app extends PLUGIN {
   constructor(AKP48, _config) {
     super(PLUGIN_NAME, AKP48);
     var self = this;
-    readline.setPrompt("> "); // This doesn't work on windows?
-    readline.prompt();
+    readline.setPrompt("> ");
+    AKP48.on("loadFinished", () => readline.prompt());
     readline.on("line", function (line) {
       AKP48.onMessage(line, createContext(self, line));
     });
