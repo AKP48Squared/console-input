@@ -44,3 +44,4 @@ app.prototype.unload = function () {
 };
 
 module.exports = app;
+module.exports.type = 'BackgroundTask';
