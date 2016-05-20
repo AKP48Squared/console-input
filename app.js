@@ -45,3 +45,4 @@ app.prototype.unload = function () {
 
 module.exports = app;
 module.exports.type = 'BackgroundTask';
+module.exports.pluginName = 'console-input';
