@@ -31,15 +31,20 @@ class app extends PLUGIN {
   constructor(AKP48, _config) {
     super(PLUGIN_NAME, AKP48);
     var self = this;
+    self.unloading = false;
     readline.setPrompt("> ");
     AKP48.on("loadFinished", () => readline.prompt());
     readline.on("line", function (line) {
       AKP48.onMessage(line, createContext(self, line));
     });
+    readline.on("close", function () {
+      if (!self.unloading) AKP48.shutdown();
+    });
   }
 }
 
 app.prototype.unload = function () {
+  self.unloading = true;
   readline.close();
 };
 
