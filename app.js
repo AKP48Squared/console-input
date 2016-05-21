@@ -36,6 +36,7 @@ class app extends PLUGIN {
     AKP48.on("loadFinished", () => readline.prompt());
     readline.on("line", function (line) {
       AKP48.onMessage(line, createContext(self, line));
+      readline.prompt();
     });
     readline.on("close", function () {
       if (!self.unloading) process.exit();
