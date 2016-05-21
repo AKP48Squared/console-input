@@ -38,7 +38,7 @@ class app extends PLUGIN {
       AKP48.onMessage(line, createContext(self, line));
     });
     readline.on("close", function () {
-      if (!self.unloading) AKP48.shutdown();
+      if (!self.unloading) process.exit();
     });
   }
 }
